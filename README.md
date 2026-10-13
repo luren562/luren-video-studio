@@ -126,7 +126,7 @@ cd frontend && npm run typecheck # 前端类型检查
 
 有问题、建议，或想跟进后续更新，欢迎加入 QQ 交流群：**306884758**
 
-<img src="docs/qq-group.jpg" alt="QQ 交流群 306884758" width="240" />
+<img src="frontend/public/qq-group.jpg" alt="QQ 交流群 306884758" width="240" />
 
 ## 许可证
 

@@ -407,6 +407,20 @@ onMounted(async () => {
         <span v-if="coverMsg" class="muted small">{{ coverMsg }}</span>
       </div>
     </div>
+
+    <div class="card stack">
+      <h2>反馈交流</h2>
+      <p class="muted small">
+        使用中遇到问题、或有功能建议，欢迎加入 QQ 交流群反馈，便于我们跟进后续更新。
+      </p>
+      <div class="row wrap" style="align-items: flex-start; gap: 20px">
+        <div>
+          <p class="mono" style="font-size: 20px; margin: 0 0 6px">QQ 群：306884758</p>
+          <small class="muted">手机 QQ 扫码加入交流群</small>
+        </div>
+        <img src="/qq-group.jpg" alt="QQ 交流群 306884758" width="180" style="border-radius: 8px" />
+      </div>
+    </div>
   </div>
 </template>
 
