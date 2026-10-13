@@ -1,0 +1,23 @@
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30,<1
+sqlalchemy>=2.0,<3
+pydantic-settings>=2.5,<3
+PyJWT>=2.9,<3
+pwdlib[argon2]>=0.2,<1
+cryptography>=43,<46
+python-multipart>=0.0.9,<1
+httpx>=0.27,<1
+loguru>=0.7,<1
+# 配音：opencode 工作区内 prepare_audio 复用（edge-tts 云希）
+edge-tts>=7.2,<8
+numpy>=1.26,<3
+# 正式迁移（批次 A）
+alembic>=1.13,<2
+# ffprobe 兜底（本机原本只有 ffmpeg；static-ffmpeg 自带一套）
+static-ffmpeg>=3.0,<4
+psycopg[binary]>=3.2,<4
+pytest>=8,<9
+# talkcraft 口播：字级时间戳后端（faster-whisper）与中文归一/拼音依赖
+faster-whisper>=1.0,<2
+zhconv>=1.4,<2
+pypinyin>=0.51,<1

@@ -1,0 +1,18 @@
+# 减小构建上下文：只保留 backend/ 与 frontend/ 源码
+engines
+renderer
+sucai
+data
+logs
+.env
+**/.env
+**/.venv
+**/node_modules
+**/dist
+**/.pytest_cache
+**/__pycache__
+**/*.pyc
+.git
+.gitignore
+*.log
+*.tmp

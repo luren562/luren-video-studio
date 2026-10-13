@@ -1,0 +1,18 @@
+{
+  "kind": "sanitized_platform_failure_sequence_not_live_model",
+  "source_task": 23,
+  "events": [
+    {"iteration": 11, "phase": "build", "tools": ["run:error", "read_file:success"]},
+    {"iteration": 13, "phase": "build", "tools": ["read_file:repeated_prefix"]},
+    {"iteration": 15, "phase": "build", "tools": ["read_file:repeated_prefix"]},
+    {"iteration": 18, "phase": "build", "tools": ["read_file:repeated_prefix"]},
+    {"iteration": 19, "phase": "build", "finish_reason": "length", "tools": []},
+    {"iteration": 20, "phase": "local_qa", "tools": ["run:error"]},
+    {"iteration": 21, "phase": "local_qa", "tools": ["write_file:phase_rejected"]},
+    {"iteration": 22, "phase": "local_qa", "tools": ["run:success", "run:error"]}
+  ],
+  "long_file_chars": 18088,
+  "candidates": 0,
+  "renders": 0,
+  "inspections": 0
+}

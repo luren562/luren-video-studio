@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Env
+.env
+backend/.env
+
+# Node
+node_modules/
+frontend/dist/
+renderer/out/
+*.tsbuildinfo
+
+# Renderer scratch
+renderer/props*.json
+
+# Runtime data
+backend/data/
+data/
+!data/.gitkeep
+
+# Renders / engines (large, not committed)
+engines/*
+!engines/README.md
+shared-runtime/node_modules/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db

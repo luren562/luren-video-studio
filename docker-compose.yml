@@ -1,0 +1,79 @@
+# 单机部署：控制面 + Worker + Web + opencode headless（agent 精修，单模式）
+# 用法（服务器上，在项目根 web/ 目录）：
+#   1) 引擎克隆到 ./engines/：video-shotcraft
+#   2) cp .env.example .env 并填写密钥/密码/模型网关
+#   3) docker compose up --build -d
+services:
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    init: true  # 回收 chrome/ffmpeg 等子进程，避免僵尸堆积
+    environment: &backend-env
+      APP_NAME: Video Foundry Backend
+      # 单机内网工具：用 SQLite（数据落在 media_data 卷），无需额外数据库容器
+      DATABASE_URL: sqlite:////app/backend/data/backend.db
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env}
+      FERNET_KEY: ${FERNET_KEY:?set FERNET_KEY in .env}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?set ADMIN_PASSWORD in .env}
+      CORS_ORIGINS: '${CORS_ORIGINS:-["http://127.0.0.1:8080"]}'
+      WORKER_ENABLED: "true"
+      PIPELINE_WORKER_ENABLED: "true"
+      PIPELINE_RESET_RUNNING_ON_START: "true"
+      ENGINES_DIR: /engines
+      # --- agent 单模式：opencode headless ---
+      AGENT_SKILL_DIRNAME: video-shotcraft
+      OPENCODE_BINARY: opencode
+      OPENCODE_HOSTNAME: 127.0.0.1
+      OPENCODE_PROVIDER_ID: vf
+      # --- AI（OpenAI 兼容网关；也可在网站「AI 供应商」页配置）---
+      AI_BASE_URL: ${AI_BASE_URL:-}
+      AI_API_KEY: ${AI_API_KEY:-}
+      AI_MODEL: ${AI_MODEL:-}
+      TTS_ENABLED: ${TTS_ENABLED:-true}
+      TTS_PROVIDER: ${TTS_PROVIDER:-edge}
+      TTS_FALLBACK: ${TTS_FALLBACK:-none}
+      TTS_REQUIRED: ${TTS_REQUIRED:-false}
+      TTS_VOICE_ZH: ${TTS_VOICE_ZH:-zh-CN-YunxiNeural}
+      TTS_RATE: ${TTS_RATE:-+0%}
+      TTS_RETRIES: ${TTS_RETRIES:-8}
+      TTS_PROXY: ${TTS_PROXY:-}
+      TTS_FORCE_IPV4: "true"
+      # --- AI 主题封面（OpenAI 兼容生图；模型在「设置 → 模型」capability=image）---
+      COVER_ENABLED: ${COVER_ENABLED:-true}
+      # --- talkcraft 口播：whisper 字级时间戳后端 ---
+      VF_TALKCRAFT_WHISPER_BACKEND: ${VF_TALKCRAFT_WHISPER_BACKEND:-whisper}
+      # 运行时 npm install（引擎 Remotion 依赖）走国内镜像
+      NPM_CONFIG_REGISTRY: ${NPM_REGISTRY:-https://registry.npmmirror.com}
+    volumes:
+      - media_data:/app/backend/data
+      - ./engines/video-shotcraft:/engines/video-shotcraft:ro
+      - ./engines/video-diagram-explainer:/engines/video-diagram-explainer:ro
+      # talkcraft 运行时自管（runtime/node_modules 写在 skill 内），需可写挂载
+      - ./engines/video-talkcraft:/engines/video-talkcraft
+      # whisper 模型缓存（约 460MB，只下一次；也可由 HF_HOME 指向 data 卷）
+      - talkcraft_cache:/root/.cache
+    shm_size: 1gb
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    restart: unless-stopped
+    ports:
+      # 直接对外 80（旧站已弃用；宝塔 nginx 需停用以免抢 80）
+      - "80:80"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  media_data:
+  talkcraft_cache:
