@@ -4,6 +4,18 @@
 
 路仁视频工作室（Video Foundry）是一个可自托管的 AI 短视频生产系统：你给出创作需求，系统驱动 AI 代理读取「制作引擎」的技能文档，自动生成分镜、写中文旁白、合成配音与字幕、用 Remotion 渲染出成片，并统一管理素材、任务与输出。
 
+## English
+
+**Video Foundry** is a self-hosted AI short-video production workbench. Give it a topic and it drives an AI agent ([opencode](https://opencode.ai)) that reads "production engine" skills to generate storyboards, write narration, synthesize voice-over and subtitles with free Edge TTS, render the final video with Remotion, and manage assets, tasks and outputs end-to-end.
+
+- **End-to-end**: topic → script/storyboard → assets → TTS/subtitles → Remotion render → cover
+- **Free Chinese TTS**: built-in Edge TTS (14 voices, no login, word-level timing) or upload your own narration
+- **Provider-agnostic**: works with any OpenAI-compatible gateway (text / vision / image / agent models)
+- **Local transcription**: video/audio to text via faster-whisper
+- **One-command deploy**: Docker Compose, admin `admin` / `123456`
+
+Keywords: AI video generator, text-to-video, Remotion, FastAPI, Vue 3, opencode, edge-tts, self-hosted, AIGC, TTS, storyboard automation, video generation.
+
 ## 功能特性
 
 - **端到端制作**：选题 → 脚本/分镜 → 素材 → 配音/字幕 → Remotion 渲染 → 成片与封面，全流程可视化。
