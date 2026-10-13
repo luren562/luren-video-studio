@@ -112,6 +112,22 @@ cd frontend && npm run typecheck # 前端类型检查
 └── docker-compose.yml
 ```
 
+## 致谢
+
+本项目的制作能力由以下优秀开源项目驱动，特此致谢（制作引擎在运行时克隆接入，不包含在本仓库内）：
+
+- [video-shotcraft](https://github.com/Vincentwei1021/video-shotcraft) —— 信息图 / 图文类短视频制作引擎
+- [video-talkcraft](https://github.com/Vincentwei1021/video-talkcraft) —— 口播类竖屏视频制作引擎
+- [anything2explainer](https://github.com/Vincentwei1021/anything2explainer) —— 从内容到解说视频的模板与脚本
+
+以及 [opencode](https://opencode.ai)、[Remotion](https://www.remotion.dev/)、[edge-tts](https://github.com/rany2/edge-tts) 等开源项目。再次感谢以上作者的无私分享。
+
+## 反馈交流
+
+有问题、建议，或想跟进后续更新，欢迎加入 QQ 交流群：**306884758**
+
+<img src="docs/qq-group.jpg" alt="QQ 交流群 306884758" width="240" />
+
 ## 许可证
 
 [MIT](LICENSE)
